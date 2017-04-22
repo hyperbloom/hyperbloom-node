@@ -57,7 +57,7 @@ peers.
 message Sync {
   message Range {
     required bytes start  = 1;
-    required bytes end = 2;
+    optional bytes end = 2;
   }
 
   required bytes filter = 1;
@@ -120,7 +120,7 @@ message Data {
 ```
 message Request {
   required bytes start  = 1;
-  required bytes end = 2;
+  optional bytes end = 2;
   optional uint32 limit = 3;
 }
 ```
@@ -128,7 +128,8 @@ message Request {
 MAY be sent by peer to selectively request values in specified range. Resulting
 `Data` message if present SHOULD contain values which are lexicographically
 (byte by byte) greater or equal than `start` and lexicographically less than
-`end`.
+`end`. If `end` is not present - the range applies to all values greater or
+equal than `start`.
 
 If `limit` is present - the number of sent values for this query SHOULD not
 exceed `limit`.

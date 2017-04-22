@@ -46,7 +46,7 @@ message Sync {
   required uint32 size = 2;
   required uint32 n = 3;
   required uint32 seed = 4;
-  uint32 max = 5;
+  uint32 limit = 5;
   repeated string extensions = 6;
 }
 ```
@@ -64,8 +64,8 @@ its capabilities.
 
 After successful validation peer MAY send `Data` messages.
 
-If `max` is present - the number of sent values for this query SHOULD not exceed
-`max`.
+If `limit` is present - the number of sent values for this query SHOULD not
+exceed `limit`.
 
 `extensions` are reserved for future use.
 
@@ -101,7 +101,7 @@ message Data {
 message Request {
   required bytes start  = 1;
   required bytes end = 2;
-  uint32 max = 3;
+  uint32 limit = 3;
 }
 ```
 
@@ -109,8 +109,8 @@ MAY be sent by peer to selectively request values in specified range. Resulting
 `Data` message if present SHOULD contain values which are lexicographically
 greater or equal than `start` and lexicographically less than `end`.
 
-If `max` is present - the number of sent values for this query SHOULD not exceed
-`max`.
+If `limit` is present - the number of sent values for this query SHOULD not
+exceed `limit`.
 
 ## Signature Chain
 

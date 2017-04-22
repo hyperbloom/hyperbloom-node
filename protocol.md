@@ -34,12 +34,17 @@ Similar to HyperCore
 message Handshake {
   required bytes id = 1;
   repeated string extensions = 2;
-  repeated bytes chain = 3;
+  required bytes signature = 3;
+  repeated bytes chain = 4;
 }
 ```
 
-- `id` - peer id
-- `extensions`
+- `id` - peer id, MUST be 32 bytes long
+- `extensions` - unspecified, reserved for the future
+- `signature` - MUST be a signature of the Hash (see below) of the other peer's
+  `nonce` from `Open`. The signature MUST be made with the private key
+  corresponding to the public key in the last Trust Link in the `chain` (see
+  `Signature Chain`)
 - `chain` - signature chain with the root verifiable by HyperCore Ledger's
             public key. See `Signature Chain` below
 
@@ -124,8 +129,9 @@ NOTE: sort example (in hex encoding) `a0` is less than `a1`, but `a000` and
 ## Signature Chain
 
 HyperBloom allows write only from the Trust Network of the HyperCore ledger's
-author. The permissions are given by signing the SHA-256 hash of the following
-structure with the private key of someone who is already in the Trust Network:
+author. The permissions are given by signing the Hash (see below) of the
+following structure with the private key of someone who is already in the Trust
+Network:
 
 - `version` - 1 for now
 - `public key` - trustee's public key
@@ -149,6 +155,14 @@ stored in auxiliary structure not covered by this document.
 
 NOTE: HyperCore Ledger's author has just one Trust Link, signing their own
 public key.
+
+## Hash
+
+Something about:
+
+```js
+sodium.crypto_generichash(out, Buffer.from('hyperbloom'), input);
+```
 
 ## Bloom Filter
 

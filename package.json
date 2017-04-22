@@ -1,0 +1,16 @@
+{
+  "name": "hyperbloom",
+  "version": "1.0.0",
+  "description": "lib/hyperbloom.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Fedor Indutny <fedor@indutny.com> (http://darksi.de/)",
+  "license": "MIT",
+  "dependencies": {
+    "badabloom": "git://github.com/indutny/badabloom.git",
+    "discovery-channel": "^5.4.2"
+  }
+}

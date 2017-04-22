@@ -22,7 +22,7 @@ message Open {
 - `feed` - discovery key of HyperCore Ledger
 - `nonce` - random 24-byte nonce
 
-Sent at the connection start by both sides.
+MUST be sent at the connection start by both sides.
 
 ## 0 Handshake
 
@@ -41,7 +41,7 @@ message Handshake {
 - `chain` - signature chain with the root verifiable by HyperCore Ledger's
             public key. See `Signature Chain` below
 
-Sent after `Open` and is used to verify trust relationship between
+MUST be sent after `Open` and is used to verify trust relationship between
 peers.
 
 ## 1 Query

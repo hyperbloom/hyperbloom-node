@@ -46,7 +46,7 @@ message Sync {
   required uint32 size = 2;
   required uint32 n = 3;
   required uint32 seed = 4;
-  uint32 limit = 5;
+  optional uint32 limit = 5;
   repeated string extensions = 6;
 }
 ```
@@ -101,7 +101,7 @@ message Data {
 message Request {
   required bytes start  = 1;
   required bytes end = 2;
-  uint32 limit = 3;
+  optional uint32 limit = 3;
 }
 ```
 

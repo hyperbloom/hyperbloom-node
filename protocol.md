@@ -15,7 +15,7 @@ MUST be used to distinguish between these two messages.
 ```
 message Open {
   required bytes feed = 1;
-  required bytes nonce = 1;
+  required bytes nonce = 2;
 }
 ```
 

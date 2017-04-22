@@ -41,7 +41,7 @@ peers.
 ## 1 Query
 
 ```
-message Query {
+message Sync {
   required bytes filter = 1;
   required uint32 size = 2;
   required uint32 n = 3;
@@ -64,12 +64,27 @@ its capabilities.
 
 After successful validation peer MAY send `Data` messages.
 
-If `max` is present - the number of sent values for this query should not exceed
+If `max` is present - the number of sent values for this query SHOULD not exceed
 `max`.
 
 `extensions` are reserved for future use.
 
-## 2 Data
+## 2 FilterOptions
+
+```
+message FilterOptions {
+  required uint32 size = 1;
+  required uint32 n = 1;
+}
+```
+
+MAY be sent at any time by peer to notify other side about recommended Bloom
+Filter size and options. Sending peer SHOULD accept filters with size less or
+equal to specified `size`. Upon receiving `Query` message with
+unsupported filter size, peer SHOULD send `FilterOptions` with recommended
+values.
+
+## 3 Data
 
 ```
 message Data {
@@ -79,6 +94,23 @@ message Data {
 
 - `values` - list of byte arrays, MUST not be empty. `values` MUST not contain
    duplicates. Each element of the list MUST not be empty.
+
+## 4 Request
+
+```
+message Request {
+  required bytes start  = 1;
+  required bytes end = 2;
+  uint32 max = 3;
+}
+```
+
+MAY be sent by peer to selectively request values in specified range. Resulting
+`Data` message if present SHOULD contain values which are lexicographically
+greater or equal than `start` and lexicographically less than `end`.
+
+If `max` is present - the number of sent values for this query SHOULD not exceed
+`max`.
 
 ## Signature Chain
 

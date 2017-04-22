@@ -55,11 +55,17 @@ peers.
 
 ```
 message Sync {
+  message Range {
+    required bytes start  = 1;
+    required bytes end = 2;
+  }
+
   required bytes filter = 1;
   required uint32 size = 2;
   required uint32 n = 3;
   required uint32 seed = 4;
   optional uint32 limit = 5;
+  optional Range range = 6;
 }
 ```
 
@@ -67,6 +73,7 @@ message Sync {
 - `size` - Bloom Filter's bit size
 - `n` - Number of hash functions in Bloom Filter
 - `seed` - seed value for the Bloom Filter's hash function
+- `range` - range of values to which Bloom Filter applies
 
 The Bloom Filter in the message contains all key + value pairs
 currently known to the peer. Upon receipt the peer MUST validate the
@@ -78,6 +85,9 @@ After successful validation peer MAY send `Data` messages.
 
 If `limit` is present - the number of sent values for this query SHOULD not
 exceed `limit`.
+
+If `range` is present - only the values between `start` and `end` MUST be
+considered (see `Request` below for description of the range).
 
 ## 2 FilterOptions
 

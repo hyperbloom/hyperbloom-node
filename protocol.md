@@ -3,11 +3,13 @@
 Messages are sent between peers. Each message (except `Open`) consists of:
 
 - binary header (protobuf `varint` encoding of message id)
+- `varint` length of the message body
 - protobuf encoding of the message
 
 For `Open`:
 
 - fixed 4-byte header: `d572c875` (magic value)
+- `varint` length of the message body
 - protobuf encoding of `Open`
 
 ## Open

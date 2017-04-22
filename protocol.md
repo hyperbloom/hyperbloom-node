@@ -1,8 +1,14 @@
 # Protocol
 
-NOTE: The magic value in header should be different from the Hyper Core.
+Messages are sent between peers. Each message consists of:
 
-## Open
+- binary header (protobuf `varint` encoding of message id)
+- protobuf encoding of the message
+
+`Open` has the same id as `Handshake`, this is intentional. Connection state
+MUST be used to distinguish between these two messages.
+
+## 0 Open
 
 **The only unencrypted message**
 

@@ -1,14 +1,16 @@
 # Protocol
 
-Messages are sent between peers. Each message consists of:
+Messages are sent between peers. Each message (except `Open`) consists of:
 
 - binary header (protobuf `varint` encoding of message id)
 - protobuf encoding of the message
 
-`Open` has the same id as `Handshake`, this is intentional. Connection state
-MUST be used to distinguish between these two messages.
+For `Open`:
 
-## 0 Open
+- fixed 4-byte header: `d572c875` (magic value)
+- protobuf encoding of `Open`
+
+## Open
 
 **The only unencrypted message**
 
@@ -44,7 +46,7 @@ message Handshake {
 MUST be sent after `Open` and is used to verify trust relationship between
 peers.
 
-## 1 Query
+## 1 Sync
 
 ```
 message Sync {
@@ -71,8 +73,6 @@ After successful validation peer MAY send `Data` messages.
 
 If `limit` is present - the number of sent values for this query SHOULD not
 exceed `limit`.
-
-`extensions` are reserved for future use.
 
 ## 2 FilterOptions
 
@@ -112,10 +112,14 @@ message Request {
 
 MAY be sent by peer to selectively request values in specified range. Resulting
 `Data` message if present SHOULD contain values which are lexicographically
-greater or equal than `start` and lexicographically less than `end`.
+(byte by byte) greater or equal than `start` and lexicographically less than
+`end`.
 
 If `limit` is present - the number of sent values for this query SHOULD not
 exceed `limit`.
+
+NOTE: sort example (in hex encoding) `a0` is less than `a1`, but `a000` and
+`a001` are both greater than `a0`. `a100` is still greater than `a0`.
 
 ## Signature Chain
 

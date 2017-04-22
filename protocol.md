@@ -47,7 +47,6 @@ message Sync {
   required uint32 n = 3;
   required uint32 seed = 4;
   optional uint32 limit = 5;
-  repeated string extensions = 6;
 }
 ```
 

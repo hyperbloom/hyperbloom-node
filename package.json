@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "badabloom": "git://github.com/indutny/badabloom.git",
+    "debug": "^2.6.4",
     "hyperbloom-protocol": "git://github.com/indutny/hyperbloom-protocol.git"
   },
   "devDependencies": {

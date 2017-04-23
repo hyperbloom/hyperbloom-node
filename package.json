@@ -1,8 +1,8 @@
 {
-  "name": "hyperbloom",
+  "name": "hyperbloom-node",
   "version": "1.0.0",
-  "description": "lib/hyperbloom.js",
-  "main": "lib/hyperbloom.js",
+  "description": "lib/node.js",
+  "main": "lib/node.js",
   "scripts": {
     "test": "mocha --reporter=spec test/*-test.js"
   },

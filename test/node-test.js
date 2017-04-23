@@ -4,13 +4,13 @@ const assert = require('assert');
 const signatures = require('sodium-signatures');
 const streamPair = require('stream-pair');
 
-const HyperBloom = require('../');
+const Node = require('../');
 
-describe('HyperBloom', () => {
+describe('hyperbloom-node', () => {
   const root = signatures.keyPair();
 
   it('should synchronize two instances on connection', (cb) => {
-    const a = new HyperBloom({
+    const a = new Node({
       feedKey: root.publicKey,
       privateKey: root.secretKey
     });
@@ -18,7 +18,7 @@ describe('HyperBloom', () => {
     a.insert(Buffer.from('hello'));
     a.insert(Buffer.from('world'));
 
-    const b = new HyperBloom({
+    const b = new Node({
       feedKey: root.publicKey,
       privateKey: root.secretKey
     });

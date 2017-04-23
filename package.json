@@ -10,12 +10,12 @@
   "author": "Fedor Indutny <fedor@indutny.com> (http://darksi.de/)",
   "license": "MIT",
   "dependencies": {
-    "badabloom": "git://github.com/indutny/badabloom.git",
+    "badabloom": "git://github.com/hyperbloom/badabloom.git",
     "debug": "^2.6.4",
-    "hyperbloom-protocol": "git://github.com/indutny/hyperbloom-protocol.git"
+    "hyperbloom-protocol": "git://github.com/hyperbloom/hyperbloom-protocol.git"
   },
   "devDependencies": {
-    "hyperbloom-chain": "git://github.com/indutny/hyperbloom-chain.git",
+    "hyperbloom-chain": "git://github.com/hyperbloom/hyperbloom-chain.git",
     "mocha": "^3.2.0",
     "sodium-signatures": "^2.0.0",
     "stream-pair": "^1.0.3"

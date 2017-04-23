@@ -12,8 +12,7 @@ describe('HyperBloom', () => {
   it('should synchronize two instances on connection', (cb) => {
     const a = new HyperBloom({
       feedKey: root.publicKey,
-      privateKey: root.secretKey,
-      chain: []
+      privateKey: root.secretKey
     });
 
     a.insert(Buffer.from('hello'));
@@ -21,8 +20,7 @@ describe('HyperBloom', () => {
 
     const b = new HyperBloom({
       feedKey: root.publicKey,
-      privateKey: root.secretKey,
-      chain: []
+      privateKey: root.secretKey
     });
 
     b.insert(Buffer.from('ohai'));

@@ -1,18 +1,25 @@
 {
   "name": "hyperbloom-node",
   "version": "1.0.0",
-  "description": "lib/node.js",
+  "description": "HyperBloom node",
   "main": "lib/node.js",
   "scripts": {
     "test": "mocha --reporter=spec test/*-test.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hyperbloom/hyperbloom-node.git"
+  },
+  "keywords": [
+    "hyperbloom",
+    "node"
+  ],
   "author": "Fedor Indutny <fedor@indutny.com> (http://darksi.de/)",
   "license": "MIT",
   "dependencies": {
-    "badabloom": "git://github.com/hyperbloom/badabloom.git",
+    "badabloom": "^1.0.0",
     "debug": "^2.6.4",
-    "hyperbloom-protocol": "git://github.com/hyperbloom/hyperbloom-protocol.git"
+    "hyperbloom-protocol": "^1.0.0"
   },
   "devDependencies": {
     "hyperbloom-chain": "git://github.com/hyperbloom/hyperbloom-chain.git",

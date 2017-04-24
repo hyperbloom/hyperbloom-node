@@ -3,11 +3,27 @@
 const assert = require('assert');
 const signatures = require('sodium-signatures');
 const streamPair = require('stream-pair');
+const Stream = require('hyperbloom-protocol').Stream;
 
 const Node = require('../');
 
 describe('hyperbloom-node', () => {
   const root = signatures.keyPair();
+  let pair;
+  let aStream;
+  let bStream;
+
+  beforeEach(() => {
+    pair = streamPair.create();
+
+    aStream = new Stream();
+    pair.pipe(aStream);
+    aStream.pipe(pair);
+
+    bStream = new Stream();
+    pair.other.pipe(bStream);
+    bStream.pipe(pair.other);
+  });
 
   it('should synchronize two instances on connection', (cb) => {
     const a = new Node({
@@ -26,12 +42,8 @@ describe('hyperbloom-node', () => {
     b.insert(Buffer.from('ohai'));
     b.insert(Buffer.from('world'));
 
-    const pair = streamPair.create();
-    pair.destroy = () => { throw new Error('Unexpected') };
-    pair.other.destroy = () => { throw new Error('Unexpected') };
-
-    a.addPeer(pair);
-    b.addPeer(pair.other);
+    a.addStream(aStream);
+    b.addStream(bStream);
 
     setTimeout(() => {
       assert(a.has(Buffer.from('ohai')));
@@ -56,10 +68,6 @@ describe('hyperbloom-node', () => {
       privateKey: root.secretKey
     });
 
-    const pair = streamPair.create();
-    pair.destroy = () => { throw new Error('Unexpected') };
-    pair.other.destroy = () => { throw new Error('Unexpected') };
-
     const w = b.watch({ start: Buffer.from('h'), end: Buffer.from('i') });
     let got = [];
     w.on('values', (values) => {
@@ -72,7 +80,7 @@ describe('hyperbloom-node', () => {
       }
     });
 
-    a.addPeer(pair);
-    b.addPeer(pair.other);
+    a.addStream(aStream);
+    b.addStream(bStream);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "hyperbloom-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HyperBloom node",
   "main": "lib/node.js",
   "scripts": {

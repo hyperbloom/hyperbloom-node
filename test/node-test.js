@@ -83,4 +83,41 @@ describe('hyperbloom-node', () => {
     a.addStream(aStream);
     b.addStream(bStream);
   });
+
+  it('should wait for peers', (cb) => {
+    const a = new Node({
+      feedKey: root.publicKey,
+      privateKey: root.secretKey
+    });
+
+    const b = new Node({
+      full: false,
+      feedKey: root.publicKey,
+      privateKey: root.secretKey
+    });
+
+    b.onPeers((err, count) => {
+      assert(!err);
+      assert.equal(count, 1);
+
+      b.insert(Buffer.from('hello'));
+    });
+
+    const w = a.watch({ start: Buffer.from('h'), end: Buffer.from('i') });
+    let got = [];
+    w.on('values', (values) => {
+      got = got.concat(values);
+      if (got.length === 1) {
+        const sorted = got.map(x => x.toString()).sort();
+        assert.deepEqual(sorted, [ 'hello' ]);
+        b.unwatch(w);
+        cb();
+      }
+    });
+
+    setTimeout(() => {
+      a.addStream(aStream);
+      b.addStream(bStream);
+    }, 50);
+  });
 });
